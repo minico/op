@@ -15,6 +15,25 @@ if [ $# -ne 1 ];then
   exit 1
 fi
 
+#Prepare env
+sudo apt-get update
+sudo apt-get upgrade
+
+sudo apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev \
+ patch python3 python2.7 unzip zlib1g-dev lib32gcc-s1 libc6-dev-i386 subversion flex uglifyjs \
+ gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto \
+ qemu-utils libelf-dev autoconf automake libtool autopoint device-tree-compiler ccache xsltproc \
+ rename antlr3 gperf curl screen upx-ucl jq
+
+if [ "$USER" == "root" ]; then
+	echo
+	echo
+	echo "请勿使用root用户编译，换一个普通用户吧~~"
+	sleep 3s
+	exit 0
+fi
+
+#Set variables
 export GITHUB_WORKSPACE=`pwd`
 CONFIG_TYPE=$1
 REPO_URL=https://git.openwrt.org/openwrt/openwrt.git
@@ -31,12 +50,13 @@ UPLOAD_WETRANSFER=false
 UPLOAD_RELEASE=true
 TZ=Asia/Shanghai
 
+
 #Clone source code
 df -hT $PWD
 git clone $REPO_URL -b $REPO_BRANCH openwrt
 
 #Load custom feeds
-[ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+[ -e $FEEDS_CONF ] && cp $FEEDS_CONF openwrt/feeds.conf.default
 chmod +x $DIY_P1_SH
 cd openwrt
 ../$DIY_P1_SH
@@ -51,8 +71,8 @@ cd openwrt
 
 #Load custom configuration
 cd -
-[ -e files ] && mv files openwrt/files
-[ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+[ -e files ] && cp -rf files openwrt/files
+[ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt/.config
 chmod +x $DIY_P2_SH
 ./$DIY_P2_SH
 
