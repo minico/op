@@ -25,7 +25,7 @@ sudo apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git
  qemu-utils libelf-dev autoconf automake libtool autopoint device-tree-compiler ccache xsltproc \
  rename antlr3 gperf curl screen upx-ucl jq
 
-if [ "$USER" == "root" ]; then
+if [ "$USER" = "root" ]; then
 	echo
 	echo
 	echo "请勿使用root用户编译，换一个普通用户吧~~"
