@@ -42,8 +42,6 @@ DEVICE=x86
 FEEDS_CONF=feeds.conf.default
 CONFIG_FILE=.config.x86
 DIY_P1_SH=diy-part1.sh
-DIY_P2_SH=diy-part2.sh
-
 
 #Clone source code
 df -hT $PWD
@@ -68,8 +66,6 @@ cd openwrt
 cd -
 [ -e files ] && cp -rf files openwrt/files
 [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt/.config
-chmod +x $DIY_P2_SH
-./$DIY_P2_SH
 
 #Download package
 cd openwrt
