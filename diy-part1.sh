@@ -17,7 +17,7 @@
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 cat >> feeds.conf.default <<EOF
-#src-git kiddin9 https://github.com/kiddin9/openwrt-packages
+src-git kiddin9 https://github.com/kiddin9/openwrt-packages
 #src-git liuran001 https://github.com/liuran001/openwrt-packages
-src-git custom https://github.com/minico/openwrt-packages
+#src-git custom https://github.com/minico/openwrt-packages
 EOF
