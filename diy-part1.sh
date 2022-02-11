@@ -21,3 +21,7 @@ cat >> feeds.conf.default <<EOF
 #src-git liuran001 https://github.com/liuran001/openwrt-packages
 src-git custom https://github.com/minico/openwrt-packages
 EOF
+
+
+
+sed -i 's?zstd$?zstd ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile?g' tools/Makefile
