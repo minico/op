@@ -16,13 +16,17 @@
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+
+#not need telephony feeds
+sed -i 's/src-git telephony/#src-git telephony/g' feeds.conf.default
+
 cat >> feeds.conf.default <<EOF
 #src-git kiddin9 https://github.com/kiddin9/openwrt-packages
 #src-git liuran001 https://github.com/liuran001/openwrt-packages
 src-git custom https://github.com/minico/openwrt-packages
 EOF
 
+# The flowing lines used to fix compile issue for helloworld
 svn export --force https://github.com/coolsnowwolf/lede/trunk/tools/upx tools/upx
 svn export --force https://github.com/coolsnowwolf/lede/trunk/tools/ucl tools/ucl
-
 sed -i 's?zstd$?zstd ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile?g' tools/Makefile
