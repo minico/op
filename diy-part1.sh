@@ -22,6 +22,7 @@ cat >> feeds.conf.default <<EOF
 src-git custom https://github.com/minico/openwrt-packages
 EOF
 
-
+svn export --force https://github.com/coolsnowwolf/lede/trunk/tools/upx tools/upx
+svn export --force https://github.com/coolsnowwolf/lede/trunk/tools/ucl tools/ucl
 
 sed -i 's?zstd$?zstd ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile?g' tools/Makefile
