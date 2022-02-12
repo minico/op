@@ -30,10 +30,6 @@ EOF
 awk ' !x[$0]++' feeds.conf.default > tmp.conf
 cp tmp.conf feeds.conf.default && rm -rf tmp.conf
 
-# The flowing lines used to fix compile issue for helloworld
-cp -rf ../tools/* ./tools
-sed -i 's?zstd$?zstd ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile?g' tools/Makefile
-
 # install some other apps
 sed -i "s/DEFAULT_PACKAGES:=/DEFAULT_PACKAGES:=dnsmasq-full wget-ssl lrzsz sysstat tcpdump curl htop bash vim /" include/target.mk
 sed -i "/dnsmasq \\\/d" include/target.mk
