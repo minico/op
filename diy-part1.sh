@@ -26,7 +26,15 @@ cat >> feeds.conf.default <<EOF
 src-git custom https://github.com/minico/openwrt-packages
 EOF
 
+# remove duplicate lines when the script run the 2nd time
+awk ' !x[$0]++' feeds.conf.default > tmp.conf
+cp tmp.conf feeds.conf.default && rm -rf tmp.conf
+
 # The flowing lines used to fix compile issue for helloworld
-svn export --force https://github.com/coolsnowwolf/lede/trunk/tools/upx tools/upx
-svn export --force https://github.com/coolsnowwolf/lede/trunk/tools/ucl tools/ucl
+if [ -ne tools/upx ]
+  svn export --force https://github.com/coolsnowwolf/lede/trunk/tools/upx tools/upx
+fi
+if [ -ne tools/ucl ]
+  svn export --force https://github.com/coolsnowwolf/lede/trunk/tools/ucl tools/ucl
+fi
 sed -i 's?zstd$?zstd ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile?g' tools/Makefile

@@ -43,9 +43,13 @@ FEEDS_CONF=feeds.conf.default
 CONFIG_FILE=.config.x86
 DIY_P1_SH=diy-part1.sh
 
-#Clone source code
 df -hT $PWD
-git clone $REPO_URL -b $REPO_BRANCH openwrt
+if [ -e openwrt ];then
+  echo "WARNING: openwrt dir has exited already, will not clone code!"
+else
+  #Clone source code
+  git clone $REPO_URL -b $REPO_BRANCH openwrt
+fi
 
 #Load custom feeds
 [ -e $FEEDS_CONF ] && cp $FEEDS_CONF openwrt/feeds.conf.default
@@ -85,7 +89,7 @@ echo "compile success~"
 cd -
 
 #Check space usage
-run: df -hT
+df -hT
 
 #Organize files
 cd openwrt/bin/targets/*/*
