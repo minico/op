@@ -76,6 +76,9 @@ jobs:
 
     - name: Load custom configuration
       run: |
+        cp -rf tools/* openwrt/tools
+        sed -i 's?zstd$?zstd ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile?g' tools/Makefile
+
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
 
