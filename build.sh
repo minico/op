@@ -45,6 +45,7 @@ fi
 
 #Load custom feeds
 [ -e $FEEDS_CONF ] && cp $FEEDS_CONF openwrt/feeds.conf.default
+
 chmod +x $DIY_P1_SH
 cd openwrt
 ../$DIY_P1_SH
@@ -67,8 +68,11 @@ sed -i 's?zstd$?zstd ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile?g' 
 
 [ -e files ] && cp -rf files openwrt/files
 [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt/.config
+
 chmod +x $DIY_P2_SH
+cd openwrt
 ./$DIY_P2_SH
+cd -
 
 #Download package
 cd openwrt

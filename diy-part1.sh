@@ -18,7 +18,7 @@
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 
 #not need telephony feeds
-echo "############# run diy part1 ##############"
+echo "############# run diy part1 in openwrt directory ##############"
 
 sed -i 's/src-git telephony/#src-git telephony/g' feeds.conf.default
 

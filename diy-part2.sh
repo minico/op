@@ -12,8 +12,8 @@
 
 # Modify default IP
 #sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
-echo "############# run diy part2 ##############"
-cp /usr/bin/upx $GITHUB_WORKSPACE/openwrt/staging_dir/host/bin/
+echo "############# run diy part2 in openwrt directory ##############"
+cp /usr/bin/upx ./staging_dir/host/bin/
 
 DATE=`date "+%Y-%m-%d %H:%M"`
-sed -i "s/.*github.*/\t\tCompiled by IVAN.ZHANG $DATE/" ./openwrt/feeds/luci/themes/luci-theme-bootstrap/luasrc/view/themes/bootstrap/footer.htm
+sed -i "s/.*github.*/\t\tCompiled by IVAN.ZHANG $DATE/" ./feeds/luci/themes/luci-theme-bootstrap/luasrc/view/themes/bootstrap/footer.htm
