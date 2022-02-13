@@ -31,5 +31,5 @@ awk ' !x[$0]++' feeds.conf.default > tmp.conf
 cp tmp.conf feeds.conf.default && rm -rf tmp.conf
 
 # install some other apps
-sed -i "s/DEFAULT_PACKAGES:=/DEFAULT_PACKAGES:=dnsmasq-full wget-ssl lrzsz sysstat tcpdump curl htop bash vim /" include/target.mk
-sed -i "/dnsmasq \\\/d" include/target.mk
+#sed -i "s/DEFAULT_PACKAGES:=/DEFAULT_PACKAGES:=dnsmasq-full wget-ssl lrzsz sysstat tcpdump curl htop bash vim /" include/target.mk
+#sed -i "/dnsmasq \\\/d" include/target.mk
