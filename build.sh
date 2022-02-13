@@ -69,6 +69,10 @@ cd openwrt
 
 #Load custom configuration
 cd -
+# The flowing lines used to fix compile issue for helloworld
+cp -rf tools/* openwrt/tools
+sed -i 's?zstd$?zstd ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile?g' openwrt/tools/Makefile
+
 [ -e files ] && cp -rf files openwrt/files
 [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt/.config
 
