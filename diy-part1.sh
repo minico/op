@@ -60,8 +60,8 @@ patch -Np1 <../patch/firewall/001-fix-firewall-flock.patch
 patch -Np1 <../patch/firewall/luci-app-firewall_add_fullcone.patch
 # FullCone 相关组件
 #svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/openwrt-fullconenat package/lean/openwrt-fullconenat
-mkdir -p package/lean/openwrt-fullconenat
-cp -rf ../patch/fullconenat/* ./package/lean/openwrt-fullconenat/ 
-pushd package/lean/openwrt-fullconenat
-patch -Np2 <../../../../patch/firewall/fullcone6.patch
-popd
+#mkdir -p package/lean/openwrt-fullconenat
+#cp -rf ../patch/fullconenat/* ./package/lean/openwrt-fullconenat/ 
+#pushd package/lean/openwrt-fullconenat
+#patch -Np2 <../../../../patch/firewall/fullcone6.patch
+#popd
