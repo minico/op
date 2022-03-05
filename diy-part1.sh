@@ -35,3 +35,33 @@ cp tmp.conf feeds.conf.default && rm -rf tmp.conf
 # install some other apps
 #sed -i "s/DEFAULT_PACKAGES:=/DEFAULT_PACKAGES:=dnsmasq-full wget-ssl lrzsz sysstat tcpdump curl htop bash vim /" include/target.mk
 #sed -i "/dnsmasq \\\/d" include/target.mk
+
+# apply patches
+### patch for disable resolve ipv6 address
+patch -Np1 <../patch/dnsmasq/dnsmasq-add-filter-aaaa-option.patch
+patch -Np1 <../patch/dnsmasq/luci-add-filter-aaaa-option.patch
+cp -f ../patch/dnsmasq/900-add-filter-aaaa-option.patch ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
+
+### Fullcone-NAT 部分 ###
+# Patch Kernel 以解决 FullCone 冲突
+#pushd target/linux/generic/hack-5.4
+#wget https://github.com/coolsnowwolf/lede/raw/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+#popd
+cp -f ../patch/firewall/952-net-conntrack-events-support-multiple-registrant.patch ./target/linux/generic/hack-5.4
+
+# Patch FireWall 以增添 FullCone 功能
+mkdir -p package/network/config/firewall/patches
+#wget -P package/network/config/firewall/patches/ https://github.com/immortalwrt/immortalwrt/raw/master/package/network/config/firewall/patches/fullconenat.patch
+cp ../patch/firewall/fullconenat.patch ./package/network/config/firewall/patches/
+#wget -qO- https://github.com/msylgj/R2S-R4S-OpenWrt/raw/21.02/PATCHES/001-fix-firewall-flock.patch | patch -p1
+patch -Np1 <../patch/firewall/001-fix-firewall-flock.patch
+
+# Patch LuCI 以增添 FullCone 开关
+patch -Np1 <../patch/firewall/luci-app-firewall_add_fullcone.patch
+# FullCone 相关组件
+#svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/openwrt-fullconenat package/lean/openwrt-fullconenat
+mkdir -p package/lean/openwrt-fullconenat
+cp -rf ../patch/fullconenat/* ./package/lean/openwrt-fullconenat/ 
+pushd package/lean/openwrt-fullconenat
+patch -Np2 <../../../../patch/firewall/fullcone6.patch
+popd

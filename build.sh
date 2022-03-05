@@ -71,7 +71,7 @@ sed -i 's?zstd$?zstd ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile?g' 
 
 chmod +x $DIY_P2_SH
 cd openwrt
-./$DIY_P2_SH
+../$DIY_P2_SH
 cd -
 
 #Download package
