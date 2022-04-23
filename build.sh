@@ -27,7 +27,7 @@ fi
 export GITHUB_WORKSPACE=`pwd`
 CONFIG_TYPE=$1
 REPO_URL=https://git.openwrt.org/openwrt/openwrt.git
-REPO_BRANCH=v21.02.1
+REPO_BRANCH=v21.02.3
 DEVICE=x86
 FEEDS_CONF=feeds.conf.default
 CONFIG_FILE=.config.x86
