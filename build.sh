@@ -35,6 +35,19 @@ DIY_P1_SH=diy-part1.sh
 DIY_P2_SH=diy-part2.sh
 
 
+swap_seconds () {
+  SEC=$1
+  (( SEC < 60 )) && echo -e "[Elapsed time: $SEC seconds]\c"
+ 
+  (( SEC >= 60 && SEC < 3600 )) && echo -e "[Elapsed time: $(( SEC / 60 )) \
+  min $(( SEC % 60 )) sec]\c"
+ 
+  (( SEC > 3600 )) && echo -e "[Elapsed time: $(( SEC / 3600 )) hr \
+  $(( (SEC % 3600) / 60 )) min $(( (SEC % 3600) % 60 )) sec]\c"
+}
+
+start=$(date +%s)
+
 df -hT $PWD
 if [ -e openwrt ];then
   echo "WARNING: openwrt dir has exited already, will not clone code!"
@@ -87,7 +100,12 @@ cd openwrt
 echo -e "$(nproc) thread compile"
 make -j$(nproc) || make -j1 || make -j1 V=s
 
+
+end=$(date +%s)
+elapsed=`swap_seconds $(( end - start ))`
+
 echo "compile success~"
+echo $elapsed
 cd -
 
 #Check space usage
