@@ -21,11 +21,12 @@
 echo "############# run diy part1 in openwrt directory ##############"
 
 sed -i 's/src-git telephony/#src-git telephony/g' feeds.conf.default
+sed -i '/src-git custom/d' feeds.conf.default
 
 cat >> feeds.conf.default <<EOF
-#src-git kiddin9 https://github.com/kiddin9/openwrt-packages
-#src-git liuran001 https://github.com/liuran001/openwrt-packages
 src-git custom https://github.com/minico/openwrt-packages
+#src-git custom https://github.com/kiddin9/openwrt-packages
+#src-git custom https://github.com/liuran001/openwrt-packages
 EOF
 
 # remove duplicate lines when the script run the 2nd time
