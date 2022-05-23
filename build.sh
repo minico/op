@@ -1,13 +1,3 @@
-#
-# Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
-#
-# This is free software, licensed under the MIT License.
-# See /LICENSE for more information.
-#
-# https://github.com/P3TERX/Actions-OpenWrt
-# Description: Build OpenWrt using GitHub Actions
-#
-
 #!/bin/bash
 
 if [ $# -ne 1 ];then
@@ -35,7 +25,8 @@ DIY_P1_SH=diy-part1.sh
 DIY_P2_SH=diy-part2.sh
 
 
-swap_seconds () {
+swap_seconds () 
+{
   SEC=$1
   (( SEC < 60 )) && echo -e "[Elapsed time: $SEC seconds]\c"
  
@@ -66,12 +57,12 @@ cd -
 
 #Update feeds
 cd openwrt
-./scripts/feeds update -af
+./scripts/feeds update -a
 
 #Install feeds
 #./scripts/feeds install libpam
-./scripts/feeds install -af -p custom
-./scripts/feeds install -af
+./scripts/feeds install -a -p custom
+./scripts/feeds install -a
 
 #Load custom configuration
 cd -
@@ -105,7 +96,7 @@ end=$(date +%s)
 elapsed=`swap_seconds $(( end - start ))`
 
 echo "compile success~"
-echo $elapsed
+echo ${elapsed}
 cd -
 
 #Check space usage
