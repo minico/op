@@ -61,8 +61,8 @@ cd openwrt
 
 #Install feeds
 #./scripts/feeds install libpam
-./scripts/feeds install -a -p custom
 ./scripts/feeds install -a
+./scripts/feeds install -a -p custom
 
 #Load custom configuration
 cd -
