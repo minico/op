@@ -23,6 +23,7 @@ FEEDS_CONF=feeds.conf.default
 CONFIG_FILE=.config.x86
 DIY_P1_SH=diy-part1.sh
 DIY_P2_SH=diy-part2.sh
+TARGET=openwrt-x86-64-generic-squashfs-combined-efi.img
 
 
 swap_seconds () 
@@ -95,17 +96,22 @@ cd openwrt
 echo -e "$(nproc) thread compile"
 make -j$(nproc) || make -j1 || make -j1 V=s
 
+#Go to target dir and unzip the image
+cd ./bin/targets/*/*
+rm -rf ${TARGET}
+gunzip ${TARGET}.gz
 
+echo
+echo ########################################
+#Display compile result
 end=$(date +%s)
 elapsed=`swap_seconds $(( end - start ))`
-
-echo "compile success~"
 echo ${elapsed}
-cd -
 
-#Check space usage
-df -hT
-
-#Organize files
-cd openwrt/bin/targets/*/*
-rm -rf packages
+if [ -e ${TARGET} ];then
+    echo "compile success~"
+else 
+    echo "compile failed!"
+fi
+echo ########################################
+echo
