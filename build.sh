@@ -64,6 +64,10 @@ cd openwrt
 ./scripts/feeds install -a
 ./scripts/feeds install -a -p custom
 
+rm -rf ./feeds/luci/applications/luci-app-ddns
+cp -rf ./feeds/custom/luci-app-ddns ./feeds/luci/applications/
+
+
 #Load custom configuration
 cd -
 # The flowing lines used to fix compile issue for helloworld
